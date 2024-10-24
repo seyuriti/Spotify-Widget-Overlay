@@ -1,0 +1,111 @@
+:root {
+  --primary-color: #f8f6f6;
+  --secondary-color: #fff;
+  --font-color: #2F3645;
+}
+
+a {
+  text-decoration: none;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+p {
+  margin: 0;
+}
+.icon {
+  width: 2.3rem;
+  height: 2.3rem;
+  fill: var(--font-color);
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  display: flex;
+  font-size: 1.6rem;
+  flex-direction: column-reverse;
+  background-color: var(--secondary-color);
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 23rem;
+  background-color: var(--primary-color);
+}
+
+.nav-bar_logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  padding: 1.5rem 0 1.3rem 0;
+}
+
+.nav-bar_item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--secondary-color);
+  font-size: 2rem;
+  width: 100%;
+  text-align: center;
+  padding: 1rem 2rem;
+}
+.nav-bar_links .nav-bar_item:hover {
+  background-color: #EEEDEB;
+  cursor: pointer;
+}
+
+.nav-bar_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav-bar_item-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--font-color);
+  font-size: 1.9rem;
+}
+
+.nav-bar_logo .nav-bar_item-text {
+  font-size: 2.2rem;
+}
+.nav-bar_logo .icon {
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
+.nav-bar_links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+
+@media screen and (max-width: 768px) {
+  .nav-bar {
+    width: 7rem;
+  }
+  .nav-bar-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .nav-bar_item .nav-bar_item-text {
+    display: none;
+    width: 0rem;
+  }
+  .nav-bar-item .nav-bar_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+}

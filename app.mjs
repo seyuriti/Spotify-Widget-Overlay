@@ -1,27 +1,23 @@
 import express from 'express';
-import { request } from 'express';
 import config from './src/config.mjs';
 import { generateRandomString } from './src/utils/index.mjs';
 
 const app = express();
 
-app.get('/validation', (req, res) => {
+app.set('view engine', 'pug');
+app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+  res.render('pages/home');
+});
+
+app.get('/validate', (req, res) => {
   const error = req.query.error || null;
 
-  if (error === null){
-    res.status(200).send('Data stored successfully');
-  }
-  
-  if (error === 'state_mismatch') {
-    res.status(400).send('State mismatch error');
-  }
-  else if (error === 'access_denied') {
-    res.status(403).send('Access denied error');
-  }
-  else {
-    res.status(400).send('Unknown error');
-  }
-})
+  if (error) { res.send(`Error: ${error}`); }
+});
 
 app.get('/login', (req, res) => {
   const state = generateRandomString(16);
@@ -43,48 +39,34 @@ app.get('/callback', async (req, res) => {
   const state = req.query.state || null;
   const error = req.query.error || null;
 
-  if (state === null) {
-    res.redirect('/validation?' +
-      new URLSearchParams({
-        error: 'state_mismatch'
-      })
-    );
-  }
-  else if (error !== null) {
-    res.redirect('/validation?' +
-      new URLSearchParams({
-        error: 'access_denied'
-      })
-    );
-  }
-  else {
-    let authOptions = {
-      form: {
-        code: code,
-        redirect_uri: config.redirectUri,
-        grant_type: 'authorization_code'
-      },
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + (new Buffer.from(config.clientId + ':' + config.clientSecret).toString('base64'))
-      },
-      json: true
-    };
+  if (state === null)
+    return res.redirect('/validate?' + new URLSearchParams({ error: 'state_mismatch' }));
+  else if (error !== null)
+    return res.redirect('/validate?' + new URLSearchParams({ error: 'access_denied' }));
+  else if (code === null)
+    return res.redirect('/validate?' + new URLSearchParams({ error: 'code_not_found' }));
+  
+  let authOptions = {
+    method: 'POST',
+    body: new URLSearchParams({
+      code: code,
+      redirect_uri: config.redirectUri,
+      grant_type: 'authorization_code'
+    }),
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Basic ' + (new Buffer.from(config.clientId + ':' + config.clientSecret).toString('base64'))
+    },
+    json: true
+  };
 
-    await fetch('https://accounts.spotify.com/api/token', authOptions)
-      .then(response => {
-        console.log(response)
-        return response.json()
-      })
-      .then(data => {
-        res.status(200).send(data);
-      })
-      .catch(err => {
-        res.status(400).send(err);
-      });
+  const data = await fetch('https://accounts.spotify.com/api/token', authOptions).json();
+  if (data.error)
+    fetch('/validate?' + new URLSearchParams({ error: data.error }));
+  else {
   }
 });
 
 app.listen(config.port, '0.0.0.0', () => {
-  console.log(`Server running on ( http://localhost:${config.port} | http://127.0.0.1:${config.port} )`);
+  console.log(`Server running on ( http://localhost:${config.port}/login )`);
 });
