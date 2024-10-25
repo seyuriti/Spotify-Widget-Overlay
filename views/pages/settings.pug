@@ -1,0 +1,63 @@
+extends ../layouts/main.pug
+
+block content
+  section.common.settings
+    .common-upper-container
+      h2.title General Settings
+      p.description Page to see the general seetings of the application.
+    .common-container
+      .common-upper-container
+        h3.title Application Information
+        p.description Information about the application.
+      .option-list
+        .option
+          p.label Client ID
+          .value-container
+            p.value
+              if clientId
+                | #{clientId}
+              else
+                | Not available
+        .option
+          p.label Client Secret
+          .value-container
+            p.value.blur
+              if clientSecret
+                | #{clientSecret}
+              else
+                | Not available
+            .eye-item
+              img.open-eye.icon(src="/svg/eye.svg", alt="Show secret")
+              img.close-eye.icon.hidden(src="/svg/eye-off.svg", alt="Hide secret")
+        .option
+          p.label Redirect URI
+          .value-container
+            p.value.blur
+              if redirectUri
+                | #{redirectUri}
+              else
+                | Not available
+            .eye-item
+              img.open-eye.icon(src="/svg/eye.svg", alt="Show secret")
+              img.close-eye.icon.hidden(src="/svg/eye-off.svg", alt="Hide secret")
+        .option 
+          p.label Scope
+          .value-container
+            p.value
+              if scope && scope.length > 0
+                | #{scope.split(' ').join(' - ')}
+              else
+                | Not available
+    .common-container
+      .common-upper-container
+        h3.title Widget Configuration
+        p.description Configuration for the widget in the application.
+      .option-list
+        .option
+          p.label Reloading tick time (ms)
+          .value-container
+            input.value.input.fixed(type="number", min=10, value=widgetTickTime, placeholder="100")
+            | ms
+
+block scripts 
+  script(src="/js/secret-eyes.js")

@@ -13,6 +13,16 @@ app.get('/', (req, res) => {
   res.render('pages/home');
 });
 
+app.get('/settings', (req, res) => {
+  res.render('pages/settings', {
+    clientId: config.clientId,
+    clientSecret: config.clientSecret,
+    redirectUri: config.redirectUri,
+    port: config.port,
+    scope: config.scope
+  });
+});
+
 app.get('/validate', (req, res) => {
   const error = req.query.error || null;
 

@@ -13,6 +13,17 @@ h1, h2, h3, h4, h5, h6 {
 p {
   margin: 0;
 }
+input {
+  outline: none;
+  border-radius: .5rem;
+}
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+
 .icon {
   width: 2.3rem;
   height: 2.3rem;
@@ -26,7 +37,79 @@ body {
   background-color: var(--secondary-color);
 }
 
+/* Common styles for pages */
+section.common {
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 5rem;
+  gap: 3rem;
+}
 
+.common-upper-container h2.title {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: var(--font-color)
+}
+.common-upper-container h3.title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--font-color);
+}
+.common-upper-container p.description {
+  margin-top: 1.1rem;
+  font-size: 1.6rem;
+  font-weight: 300;
+}
+
+.common-container {
+  background-color: var(--primary-color);
+  padding: 2.5rem 3rem;
+  border-radius: 1rem;
+  border: .1rem solid #E0E0E0;
+  max-width: 70rem;
+}
+
+.option-list {
+  margin-top: 1.5rem;
+}
+.option-list .option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  border-bottom: .1rem solid #E0E0E0;
+}
+
+.option .value-container {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.option-list .option:last-child {
+  border-bottom: none;
+}
+
+.hidden {
+  display: none;
+}
+.little-icon {
+  width: 2rem;
+  height: 2rem;
+}
+.eye-item {
+  cursor: pointer;
+}
+.blur {
+  filter: blur(7px);
+}
+.not-blur {
+  filter: blur(0);
+}
+
+
+/* Home page Styles */
 .nav-bar {
   display: flex;
   flex-direction: column;
@@ -110,4 +193,10 @@ body {
     width: 2.4rem;
     height: 2.4rem;
   }
+}
+
+
+/* Settings page */
+.option-list .option input.fixed {
+  width: 7rem;
 }
