@@ -200,3 +200,25 @@ section.common {
 .option-list .option input.fixed {
   width: 7rem;
 }
+
+/* Error and success validation page */
+.error-message-validation {
+  color: #a70000;
+  font-size: 1.6rem;
+  font-weight: 300;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.success-message-validation {
+  color: #007700;
+  font-size: 1.6rem;
+  font-weight: 300;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

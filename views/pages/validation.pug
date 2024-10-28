@@ -1,0 +1,14 @@
+extends ../layouts/main.pug
+
+block content
+  if error
+    .error-message-validation
+      if error === 'state_mismatch'
+        p The state parameter does not match. Please try again.
+      else if error === 'access_denied'
+        p The user denied the access to the application.
+      else
+        p An error occurred while validating the application. Please try again.
+  if success
+    .success-message-validation
+      p The application has been successfully validated.

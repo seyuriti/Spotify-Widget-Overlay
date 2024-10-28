@@ -1,5 +1,4 @@
 import { config as loadEnv } from "dotenv";
-import e from "express";
 loadEnv()
 
 const port = process.env.PORT || 8900;
